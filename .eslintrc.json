@@ -8,5 +8,6 @@
 	},
 	"rules": {
 		"linebreak-style": ["error", "unix"]
-	}
+	},
+	"plugins": ["json"]
 }
