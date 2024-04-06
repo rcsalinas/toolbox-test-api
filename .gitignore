@@ -63,3 +63,6 @@ Dockerfile
 
 # Ignore npm package manager state
 node_modules
+
+# Ignore coverage directory
+coverage/
