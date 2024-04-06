@@ -1,0 +1,12 @@
+{
+	"extends": ["eslint:recommended", "plugin:prettier/recommended"],
+	"parserOptions": {
+		"ecmaVersion": "latest"
+	},
+	"env": {
+		"node": true
+	},
+	"rules": {
+		"linebreak-style": ["error", "unix"]
+	}
+}
