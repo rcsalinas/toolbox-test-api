@@ -8,7 +8,8 @@
 		"dev": "nodemon app.js",
 		"lint": "eslint .",
 		"lint:fix": "eslint --fix .",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"pre-commit": "lint-staged"
 	},
 	"author": "",
 	"license": "ISC",
