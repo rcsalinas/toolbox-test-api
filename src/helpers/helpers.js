@@ -12,11 +12,6 @@ const processContent = (content) => {
 		const match = lines[i].trim().match(lineRegex);
 		if (match) {
 			const [, text, number, hex] = match.slice(1);
-			//convert number to integer and check if it is a number
-			const numberInt = parseInt(number);
-			if (isNaN(numberInt)) {
-				continue;
-			}
 			linesData.push({ text, number, hex });
 		}
 	}
