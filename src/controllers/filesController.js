@@ -11,7 +11,11 @@ const getFilesData = async (req, res) => {
 			const lines = helpers.processContent(content);
 			return res.status(200).json({ file: fileName, lines: lines });
 		} catch (err) {
-			return res.status(500).json({ message: 'Internal server error' });
+			if (err.response.status === 404) {
+				return res.status(404).json({ message: 'File not found' });
+			} else {
+				return res.status(500).json({ message: 'Internal server error' });
+			}
 		}
 	}
 	let fileNames;
