@@ -9,7 +9,9 @@ const getFilesData = async (req, res) => {
 		try {
 			const content = await fileServices.getFileContent(fileName);
 			const lines = helpers.processContent(content);
-			return res.status(200).json({ file: fileName, lines: lines });
+			return res
+				.status(200)
+				.json({ files: [{ file: fileName, lines: lines }] });
 		} catch (err) {
 			if (err.response.status === 404) {
 				return res.status(404).json({ message: 'File not found' });

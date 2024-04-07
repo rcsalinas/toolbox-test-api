@@ -95,8 +95,11 @@ describe('filesController', () => {
 		await filesController.getFilesData(req, res);
 
 		expect(res.status.calledWith(200)).to.be.true;
-		expect(res.json.calledWith({ file: 'file1', lines: 'file content' })).to.be
-			.true;
+		expect(
+			res.json.calledWith({
+				files: [{ file: 'file1', lines: 'file content' }],
+			}),
+		).to.be.true;
 	});
 	it('getting individual file, file services fails not found', async () => {
 		const mockFileNames = ['file1', 'file2', 'file3'];
