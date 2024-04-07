@@ -1,5 +1,5 @@
-const { processContent } = require('../helpers/helpers');
-const { listSecretFiles, getFileContent } = require('../services/fileServices');
+const helpers = require('../helpers/helpers');
+const fileServices = require('../services/fileServices');
 
 //getFilesData is the controller function that fetches the data of all files
 const getFilesData = async (req, res) => {
@@ -7,8 +7,8 @@ const getFilesData = async (req, res) => {
 
 	if (fileName) {
 		try {
-			const content = await getFileContent(fileName);
-			const lines = processContent(content);
+			const content = await fileServices.getFileContent(fileName);
+			const lines = helpers.processContent(content);
 			return res.status(200).json({ file: fileName, lines: lines });
 		} catch (err) {
 			return res.status(500).json({ message: 'Internal server error' });
@@ -16,7 +16,7 @@ const getFilesData = async (req, res) => {
 	}
 	let fileNames;
 	try {
-		fileNames = await listSecretFiles();
+		fileNames = await fileServices.listSecretFiles();
 		console.log('fileNames:', fileNames);
 	} catch (err) {
 		return res.status(500).json({ message: 'Internal server error' });
@@ -26,8 +26,8 @@ const getFilesData = async (req, res) => {
 
 	for (const file of fileNames) {
 		try {
-			const content = await getFileContent(file);
-			const lines = processContent(content);
+			const content = await fileServices.getFileContent(file);
+			const lines = helpers.processContent(content);
 			files.push({ file, lines });
 		} catch (err) {
 			console.error(
@@ -45,7 +45,7 @@ const getFilesData = async (req, res) => {
 const listFiles = async (req, res) => {
 	let fileNames;
 	try {
-		fileNames = await listSecretFiles();
+		fileNames = await fileServices.listSecretFiles();
 		console.log('fileNames:', fileNames);
 	} catch (err) {
 		return res.status(500).json({ message: 'Internal server error' });
