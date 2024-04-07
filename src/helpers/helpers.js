@@ -7,7 +7,7 @@ const processContent = (content) => {
 	if (lines.length === 1) {
 		return [];
 	}
-	const lineRegex = /^([^,]+),([^,]+),(0|[1-9]\d*(\.\d+)?),([^,]+)$/;
+	const lineRegex = /^([^,]+),([^,]+),(0|[1-9]\d*(?:\.\d+)?),([^,]+)$/;
 	for (let i = 1; i < lines.length; i++) {
 		const match = lines[i].trim().match(lineRegex);
 		if (match) {
