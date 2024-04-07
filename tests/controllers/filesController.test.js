@@ -98,10 +98,39 @@ describe('filesController', () => {
 		expect(res.json.calledWith({ file: 'file1', lines: 'file content' })).to.be
 			.true;
 	});
-	it('getting individual file, file services fails', async () => {
+	it('getting individual file, file services fails not found', async () => {
 		const mockFileNames = ['file1', 'file2', 'file3'];
 		listSecretFilesStub.returns(Promise.resolve(mockFileNames));
-		getFileContentStub.throws('Error fetching file content');
+		getFileContentStub.throws({
+			response: {
+				status: 404,
+				message: 'File not found',
+			},
+		});
+		const req = {
+			query: {
+				fileName: 'file1',
+			},
+		};
+		const res = {
+			status: sinon.stub().returnsThis(),
+			json: sinon.spy(),
+		};
+
+		await filesController.getFilesData(req, res);
+
+		expect(res.status.calledWith(404)).to.be.true;
+		expect(res.json.calledWith({ message: 'File not found' })).to.be.true;
+	});
+	it('getting individual file, file services fails internal server error', async () => {
+		const mockFileNames = ['file1', 'file2', 'file3'];
+		listSecretFilesStub.returns(Promise.resolve(mockFileNames));
+		getFileContentStub.throws({
+			response: {
+				status: 500,
+				message: 'Internal server error',
+			},
+		});
 		const req = {
 			query: {
 				fileName: 'file1',
