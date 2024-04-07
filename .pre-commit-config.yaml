@@ -10,7 +10,7 @@ repos:
     hooks:
       - id: black
   - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: 'v9.0.0'
+    rev: ''
     hooks:
       - id: eslint
   - repo: https://github.com/pre-commit/mirrors-prettier
